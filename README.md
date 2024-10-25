@@ -4,7 +4,7 @@
 
 
 
-**DishDater - Projektbeschreibung 🍲📜**
+**Rezept-Formular - Projektbeschreibung 🍲📜**
 
 Das rezept Formular ist eine interaktive Anwendung zum Teilen und Verwalten von Rezepten – ideal für kulinarische Kreative und Foodies! Der Code in HTML, CSS und JavaScript ist für GitHub optimiert und bietet eine moderne, dynamische Benutzeroberfläche, die es Nutzer:innen ermöglicht, ihre Rezepte ganz einfach hinzuzufügen, zu organisieren und zu teilen.
 
