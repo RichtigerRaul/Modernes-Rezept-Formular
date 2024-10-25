@@ -1,7 +1,7 @@
 
 ![image](https://github.com/user-attachments/assets/8f119107-f099-4ee9-b231-65340f9f3a69)
-![formular 2](https://github.com/user-attachments/assets/ecb941de-3466-4abb-971f-678eb22489a5)
-![formular 3](https://github.com/user-attachments/assets/c8538bd8-1125-4688-86b6-b262dd0c78e8)
+
+
 
 
 **DishDater - Projektbeschreibung 🍲📜**
@@ -32,3 +32,7 @@ DishDater ist eine interaktive Anwendung zum Teilen und Verwalten von Rezepten �
 - **Open-Source-freundlich 🌐🤝**: GitHub ist der ideale Ort für dieses Projekt, um die Community einzubinden, Issues zu verfolgen und durch Pull Requests zusammenzuarbeiten.
 
 Mit dieser Codebasis auf GitHub ist DishDater bereit, durch die Community weiterentwickelt und optimiert zu werden. Ein echtes Schmankerl für Entwickler:innen und Food-Liebhaber:innen gleichermaßen! 🍲🌟
+
+![formular 2](https://github.com/user-attachments/assets/ecb941de-3466-4abb-971f-678eb22489a5)
+
+![formular 3](https://github.com/user-attachments/assets/c8538bd8-1125-4688-86b6-b262dd0c78e8)
