@@ -8,8 +8,6 @@
 
 DishDater ist eine interaktive Anwendung zum Teilen und Verwalten von Rezepten – ideal für kulinarische Kreative und Foodies! Der Code in HTML, CSS und JavaScript ist für GitHub optimiert und bietet eine moderne, dynamische Benutzeroberfläche, die es Nutzer:innen ermöglicht, ihre Rezepte ganz einfach hinzuzufügen, zu organisieren und zu teilen.
 
-![formular 3](https://github.com/user-attachments/assets/c8538bd8-1125-4688-86b6-b262dd0c78e8)
-
 ### 🛠️ Features und Funktionsweise:
 
 1. **Responsives Design 📱💻**:  
@@ -37,4 +35,4 @@ DishDater ist eine interaktive Anwendung zum Teilen und Verwalten von Rezepten �
 
 Mit dieser Codebasis auf GitHub ist DishDater bereit, durch die Community weiterentwickelt und optimiert zu werden. Ein echtes Schmankerl für Entwickler:innen und Food-Liebhaber:innen gleichermaßen! 🍲🌟
 
-
+![formular 3](https://github.com/user-attachments/assets/c8538bd8-1125-4688-86b6-b262dd0c78e8)
