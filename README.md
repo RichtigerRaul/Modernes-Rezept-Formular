@@ -36,3 +36,9 @@ DishDater ist eine interaktive Anwendung zum Teilen und Verwalten von Rezepten �
 Mit dieser Codebasis auf GitHub ist DishDater bereit, durch die Community weiterentwickelt und optimiert zu werden. Ein echtes Schmankerl für Entwickler:innen und Food-Liebhaber:innen gleichermaßen! 🍲🌟
 
 ![formular 3](https://github.com/user-attachments/assets/c8538bd8-1125-4688-86b6-b262dd0c78e8)
+
+Um DishDater im eigenen Projekt oder auf der Website zu verwenden, ist es super einfach und schnell einzurichten – perfekt für jede Entwickler:in oder Kochbegeisterte, die Rezepte teilen möchte. ✨
+
+**So geht’s:** Kopiere die HTML-Datei und richte dir kostenlos einen [Formspree-Account](https://formspree.io) ein, um die Datenverarbeitung zu ermöglichen. Nach der Anmeldung erhältst du von Formspree einen eindeutigen Formular-Link. Tausche im HTML-Code einfach den bestehenden Link unter der gekennzeichneten Stelle durch deinen neuen Formspree-Link aus, und schon kann es losgehen! 🍲💌
+
+Damit ist dein DishDater-Formular vollständig einsatzbereit. Ob als persönliche Rezeptesammlung oder für eine Community – die Anwendung ist sofort bereit für die Weitergabe und perfekt auf GitHub und Open-Source-Nutzung abgestimmt!
