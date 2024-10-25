@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rezept teilen | DishDater</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Outfit:wght@300;400;500;600&display=swap');
+
+        :root {
+            --cream-bg: #FFFDF8;
+            --warm-gray: #2C2C2C;
+            --accent-orange: #FF9843;
+            --accent-red: #FF6B6B;
+            --paper-shadow: rgba(0, 0, 0, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.7);
+            --background-gradient: linear-gradient(to bottom, #ffd79a 0%, #FAD0C4 100%);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--background-gradient);
+            color: var(--warm-gray);
+            min-height: 100vh;
+        }
+
+        .container {
+            margin: 2rem auto;
+            padding: 3rem;
+            max-width: 800px;
+            background: var(--cream-bg);
+            border-radius: 12px;
+            box-shadow: 
+                0 4px 12px var(--paper-shadow),
+                0 1px 3px var(--paper-shadow);
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Shadows Into Light', cursive;
+            color: var(--warm-gray);
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        h1::after {
+            content: '✨';
+            position: absolute;
+            font-size: 1.5rem;
+            margin-left: 10px;
+            opacity: 0.8;
+        }
+
+        label {
+            font-weight: 500;
+            color: var(--warm-gray);
+            margin-top: 1.5rem;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0 1rem;
+            border: 2px solid rgba(44, 44, 44, 0.1);
+            border-radius: 12px;
+            background: var(--input-bg);
+            color: var(--warm-gray);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(255, 152, 67, 0.1);
+        }
+
+        .accordion-item {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(44, 44, 44, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .accordion-content {
+            padding: 0 1rem 1rem 1rem;
+            display: none;
+        }
+
+        .accordion-content.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .accordion-header .preview-text {
+            color: var(--warm-gray);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .remove-button {
+            background: transparent;
+            color: var(--accent-red);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .remove-button:hover {
+            opacity: 1;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .add-button {
+            background: transparent;
+            color: var(--accent-orange);
+            border: 2px dashed var(--accent-orange);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            width: auto;
+        }
+
+        .add-button:hover {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .submit-button {
+            background: var(--accent-orange);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            flex: 1;
+            max-width: 200px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 152, 67, 0.2);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 152, 67, 0.3);
+        }
+
+        .home-button {
+            background: transparent;
+            color: var(--warm-gray);
+            border: 2px solid rgba(44, 44, 44, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 200px;
+            text-align: center;
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .submit-button,
+            .home-button {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teile dein Rezept</h1>
+
+        <form id="rezeptForm" action="https://formspree.io/f/mldedoqg" method="POST">
+            <div class="form-group">
+                <label for="rezeptname">Rezeptname</label>
+                <input type="text" id="rezeptname" name="Rezeptname" placeholder="z.B. Omas bester Apfelkuchen" required>
+            </div>
+
+            <div class="form-group">
+                <label for="beschreibung">Beschreibung</label>
+                <textarea id="beschreibung" name="Beschreibung" placeholder="Erzähle etwas über dein Rezept..." rows="3" required></textarea>
+            </div>
+
+            <div class="form-group" id="zutatenContainer">
+                <label>Zutaten</label>
+                <div id="zutatenListe"></div>
+                <button type="button" class="add-button" onclick="addIngredient()">
+                    <i class="fas fa-plus"></i> Zutat hinzufügen
+                </button>
+            </div>
+
+            <div class="form-group" id="anleitungContainer">
+                <label>Anleitung</label>
+                <div id="anleitungListe"></div>
+                <button type="button" class="add-button" onclick="addStep()">
+                    <i class="fas fa-plus"></i> Schritt hinzufügen
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label for="person_name">Dein Name (optional)</label>
+                <input type="text" id="person_name" name="Name" placeholder="Wie heißt du?">
+            </div>
+
+            <div class="form-group">
+                <label for="person_email">Deine E-Mail (optional)</label>
+                <input type="email" id="person_email" name="Email" placeholder="Deine E-Mail-Adresse">
+            </div>
+
+            <input type="hidden" name="_next" value="https://dishdater.com/danke">
+
+            <div class="button-group">
+                <button type="submit" class="submit-button">Rezept einreichen</button>
+                <button type="button" class="home-button" onclick="window.location.href='https://dishdater.com'">DishDater</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let zutatenCount = 0;
+        let stepCount = 0;
+    
+        function createAccordionItem(type, index) {
+            const item = document.createElement('div');
+            item.className = 'accordion-item';
+            item.dataset.type = type;
+            item.dataset.index = index;
+    
+            const isIngredient = type === 'zutat';
+            const content = isIngredient ? createIngredientContent() : createStepContent();
+            
+            item.innerHTML = `
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span class="title">${isIngredient ? 'Zutat' : 'Schritt'} ${index + 1}</span>
+                    <span class="preview-text"></span>
+                    <div style="display: flex; align-items: center;">
+                        <button type="button" class="remove-button" onclick="removeItem(event, this)" title="${isIngredient ? 'Zutat' : 'Schritt'} entfernen">&times;</button>
+                        <i class="fas fa-chevron-down chevron"></i>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    ${content}
+                </div>
+            `;
+    
+            return item;
+        }
+    
+        function createIngredientContent() {
+            return `
+                <div class="ingredient-details">
+                    <input type="text" name="Zutaten[]" placeholder="Zutat" required onchange="updatePreview(this)">
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <input type="number" name="Menge[]" placeholder="Menge" min="0.1" step="0.1" required onchange="updatePreview(this)">
+                         <select name="Einheit[]" required onchange="updatePreview(this)">
+                            <option value="" disabled selected>Einheit wählen</option>
+                            <!-- Volumen -->
+                            <option value="ml">ml (Milliliter)</option>
+                            <option value="l">l (Liter)</option>
+                            <option value="EL">EL (Esslöffel)</option>
+                            <option value="TL">TL (Teelöffel)</option>
+                            <option value="Msp">Msp (Messerspitze)</option>
+                            <option value="Tasse">Tasse (250ml)</option>
+                            <option value="Becher">Becher (200ml)</option>
+                            <!-- Gewicht -->
+                            <option value="g">g (Gramm)</option>
+                            <option value="kg">kg (Kilogramm)</option>
+                            <option value="mg">mg (Milligramm)</option>
+                            <!-- Stückzahl -->
+                            <option value="Stück">Stück</option>
+                            <option value="Prise(n)">Prise(n)</option>
+                            <option value="Pck">Pck (Päckchen)</option>
+                            <option value="Pkg">Pkg (Packung)</option>
+                            <option value="Bund">Bund</option>
+                            <option value="Dose(n)">Dose(n)</option>
+                            <option value="Glas">Glas</option>
+                            <option value="Zehe(n)">Zehe(n)</option>
+                            <!-- Andere -->
+                            <option value="nach Geschmack">nach Geschmack</option>
+                            <option value="nach Belieben">nach Belieben</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+        }
+    
+        function createStepContent() {
+            return `
+                <textarea name="Anleitung[]" placeholder="Beschreibe diesen Schritt..." rows="3" required onchange="updatePreview(this)"></textarea>
+            `;
+        }
+    
+        function addIngredient() {
+            const container = document.getElementById('zutatenListe');
+            
+            // Alle vorherigen Accordion-Inhalte schließen
+            container.querySelectorAll('.accordion-content.active').forEach(content => {
+                content.classList.remove('active');
+                content.previousElementSibling.classList.remove('active');
+            });
+            
+            const item = createAccordionItem('zutat', zutatenCount++);
+            container.appendChild(item);
+            
+            // Nur das neue Element öffnen
+            const newContent = item.querySelector('.accordion-content');
+            const newHeader = item.querySelector('.accordion-header');
+            newContent.classList.add('active');
+            newHeader.classList.add('active');
+            
+            // Zum neuen Element scrollen
+            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    
+        function addStep() {
+            const container = document.getElementById('anleitungListe');
+            
+            // Alle vorherigen Accordion-Inhalte schließen
+            container.querySelectorAll('.accordion-content.active').forEach(content => {
+                content.classList.remove('active');
+                content.previousElementSibling.classList.remove('active');
+            });
+            
+            const item = createAccordionItem('schritt', stepCount++);
+            container.appendChild(item);
+            
+            // Nur das neue Element öffnen
+            const newContent = item.querySelector('.accordion-content');
+            const newHeader = item.querySelector('.accordion-header');
+            newContent.classList.add('active');
+            newHeader.classList.add('active');
+            
+            // Zum neuen Element scrollen
+            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+            header.nextElementSibling.classList.toggle('active');
+        }
+    
+        function removeItem(event, button) {
+            event.stopPropagation();
+            const item = button.closest('.accordion-item');
+            const container = item.closest('#zutatenListe, #anleitungListe');
+            item.remove();
+            updateNumbers(container);
+        }
+    
+        function updateNumbers(container) {
+            const items = container.querySelectorAll('.accordion-item');
+            items.forEach((item, index) => {
+                const title = item.querySelector('.title');
+                const type = item.dataset.type === 'zutat' ? 'Zutat' : 'Schritt';
+                title.textContent = `${type} ${index + 1}`;
+            });
+            
+            if (container.id === 'zutatenListe') {
+                zutatenCount = items.length;
+            } else {
+                stepCount = items.length;
+            }
+        }
+    
+        function updatePreview(input) {
+            const item = input.closest('.accordion-item');
+            const previewText = item.querySelector('.preview-text');
+            
+            if (item.dataset.type === 'zutat') {
+                const zutat = item.querySelector('input[name="Zutaten[]"]').value;
+                const menge = item.querySelector('input[name="Menge[]"]').value;
+                const einheit = item.querySelector('select[name="Einheit[]"]').value;
+                
+                if (zutat && menge && einheit) {
+                    previewText.textContent = `${zutat} (${menge} ${einheit})`;
+                } else {
+                    previewText.textContent = zutat || '';
+                }
+            } else {
+                const text = input.value;
+                previewText.textContent = text.length > 40 ? text.substring(0, 37) + '...' : text;
+            }
+        }
+    
+        function showSuccessMessage() {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            successMessage.innerHTML = 'Rezept erfolgreich eingereicht! ✨';
+            document.body.appendChild(successMessage);
+            
+            setTimeout(() => {
+                successMessage.remove();
+            }, 3000);
+        }
+    
+        function resetForm() {
+            document.getElementById('rezeptForm').reset();
+            document.getElementById('zutatenListe').innerHTML = '';
+            document.getElementById('anleitungListe').innerHTML = '';
+            zutatenCount = 0;
+            stepCount = 0;
+        }
+    
+        // Formularverarbeitung
+        document.getElementById('rezeptForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Überprüfen, ob mindestens eine Zutat und ein Schritt vorhanden sind
+            const zutatenItems = document.querySelectorAll('#zutatenListe .accordion-item').length;
+            const stepItems = document.querySelectorAll('#anleitungListe .accordion-item').length;
+
+            if (zutatenItems === 0 || stepItems === 0) {
+                alert('Bitte füge mindestens eine Zutat und einen Zubereitungsschritt hinzu.');
+                return;
+            }
+    
+            // Daten sammeln
+            const formData = new FormData(event.target);
+            const data = {};
+    
+            // Arrays sammeln
+            const zutaten = [];
+            const mengen = [];
+            const einheiten = [];
+            const anleitung = [];
+    
+            document.querySelectorAll('input[name="Zutaten[]"]').forEach(input => zutaten.push(input.value));
+            document.querySelectorAll('input[name="Menge[]"]').forEach(input => mengen.push(input.value));
+            document.querySelectorAll('select[name="Einheit[]"]').forEach(select => einheiten.push(select.value));
+            document.querySelectorAll('textarea[name="Anleitung[]"]').forEach(textarea => anleitung.push(textarea.value));
+    
+            // Formular-Daten zusammenstellen
+            data.Rezeptname = formData.get('Rezeptname');
+            data.Beschreibung = formData.get('Beschreibung');
+            data.Zutaten = zutaten.join(', ');
+            data.Mengen = mengen.join(', ');
+            data.Einheiten = einheiten.join(', ');
+            data.Anleitung = anleitung.join('\n\n');
+            data.Name = formData.get('Name');
+            data.Email = formData.get('Email');
+    
+            // Submit Button deaktivieren während des Sendens
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
+    
+            // An Formspree senden
+            fetch('https://YOUR_FORMSPREE_ADDRESS_HERE_____________________________________________________________________', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+    
+                if (response.ok) {
+                    showSuccessMessage();
+                    resetForm();
+                } else {
+                    throw new Error('Fehler beim Senden');
+                }
+            })
+            .catch(error => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+                alert('Es gab ein Problem beim Senden des Formulars. Bitte versuchen Sie es später noch einmal.');
+            });
+        });
+    
+        // Keine initialen Einträge mehr beim Laden
+        // window.addEventListener('load', () => {
+        //     addIngredient();
+        //     addStep();
+        // });
+</script>
+</body>
+</html>
